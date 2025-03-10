@@ -1,132 +1,50 @@
 <div id="downloadcontent" class="exam-analysis-container" *ngIf="analysisData">
-  <!-- Ders Başlığı -->
   <table class="excel-table">
-    <thead>
-      <tr>
-        <th class="course-name">
-          {{ analysisData.courseName }} Kazanım Raporu
-        </th>
+    <tr>
+      <td colspan="3" class="course-name">
+        {{ analysisData.courseName }} Kazanım Raporu
+      </td>
+    </tr>
+    <tr>
+      <td>DOĞRU ORTALAMA</td>
+      <td>YANLIŞ ORTALAMA</td>
+      <td>BOŞ ORTALAMA</td>
+    </tr>
+    <tr>
+      <td> {{ overallAverages.correct }}</td>
+      <td> {{ overallAverages.wrong }}</td>
+      <td> {{ overallAverages.notAnswered }}</td>
+    </tr>
+    <tr>
+      <td class="gaining-title" colspan="3">
+        DERS KAZANIMLARI
+      </td>
+    </tr>
+    <ng-container style="page-break-inside: avoid;" *ngFor="let i of getQuestionIndices(); let index = index">
+      <tr style="break-before: always; break-after:avoid;" [ngClass]="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
+        <td colspan="1" class="gaining-text">
+          A{{ i + 1 }} - B{{ questionReference[i] || 'N/A' }} SORU KAZANIMI
+        </td>
+        <td colspan="2" class="gaining-text">
+          {{ topics[i] || 'No Topic Provided' }}
+        </td>
       </tr>
-    </thead>
+      <tr [ngClass]="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
+        <td>DOĞRU YAPAN SAYISI</td>
+        <td>YANLIŞ YAPAN SAYISI</td>
+        <td>BOŞ BIRAKAN SAYISI</td>
+      </tr>
+      <tr [ngClass]="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0, 'last-row': true }">
+        <td class="numeric-value">
+          {{ questionsAnalysis[i].correctCount }}
+        </td>
+        <td class="numeric-value">
+          {{ questionsAnalysis[i].wrongCount }}
+        </td>
+        <td class="numeric-value">
+          {{ questionsAnalysis[i].notAnsweredCount }}
+        </td>
+      </tr>
+    </ng-container>
   </table>
-  <!-- Ortalama Kısmı -->
-  <div class="average-section">
-    <table class="excel-table">
-      <colgroup>
-        <col style="width: 33.3%">
-        <col style="width: 33.3%">
-        <col style="width: 33.3%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th>DOĞRU ORTALAMA</th>
-          <th>YANLIŞ ORTALAMA</th>
-          <th>BOŞ ORTALAMA</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="numeric-value">{{ overallAverages.correct }}</td>
-          <td class="numeric-value">{{ overallAverages.wrong }}</td>
-          <td class="numeric-value">{{ overallAverages.notAnswered }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-    <!-- Course Gainings -->
-    <div class="gainings-section">
-      <table class="excel-table">
-        <tr>
-          <th style="background-color: orange;">
-            <h1>DERS KAZANIMLARI</h1>
-          </th>
-        </tr>
-      </table>
-    </div>
-    <div *ngFor="let i of getQuestionIndices()">
-      <div class="gaining">
-        <table class="excel-table">
-          <colgroup>
-            <col style="width: 33.3%">
-            <col style="width: 66.6%">
-          </colgroup>
-          <thead>
-            <tr>
-              <th style="background-color: rgb(195, 255, 160) !important" class="gaining-text">
-                A{{ i + 1 }} - B{{ questionReference[i] || 'N/A' }} SORU KAZANIMI
-              </th>
-              <th style="background-color: rgb(195, 255, 160) !important" class="gaining-text">
-                {{ topics[i] || 'No Topic Provided' }}
-              </th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-
-      <!-- Wrong Answer and Not Answered Counts Table -->
-      <table [ngStyle]="{ 'border-bottom': i === topics.length - 1 ? '1px solid #000' : 'none' }"
-        class="answer-analysis-table">
-        <colgroup>
-          <col style="width: 33.3%">
-          <col style="width: 33.3%">
-          <col style="width: 33.3%">
-        </colgroup>
-        <thead>
-          <tr>
-            <th class="analysis-heading">DOĞRU YAPAN SAYISI</th>
-            <th class="analysis-heading">YANLIŞ YAPAN SAYISI</th>
-            <th class="analysis-heading">BOŞ BIRAKAN SAYISI</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="numeric-value">
-              {{ questionsAnalysis[i].correctCount }}
-            </td>
-            <td class="numeric-value">
-              {{ questionsAnalysis[i].wrongCount }}
-            </td>
-            <td class="numeric-value">
-              {{ questionsAnalysis[i].notAnsweredCount }}
-            </td>
-          </tr>
-          <!--
-          <tr>
-            <th class="analysis-heading">DOĞRU YAPAN ÖĞRENCİLER</th>
-            <th class="analysis-heading">YANLIŞ YAPAN ÖĞRENCİLER</th>
-            <th class="analysis-heading">BOŞ BIRAKAN ÖĞRENCİLER</th>
-          </tr>
-          <tr>
-            <td class="student-list">
-              <span *ngIf="questionsAnalysis[i].correctStudents.length; else noneWrong">
-                <span style="text-align: start;"
-                  *ngFor="let student of questionsAnalysis[i].correctStudents; let first = first; let odd = odd" [ngClass]="{'odd': odd, 'even': !odd}" class="student-name">
-                  {{ student }}
-                </span>
-              </span>
-              <ng-template #noneWrong></ng-template>
-            </td>
-            <td class="student-list">
-              <span *ngIf="questionsAnalysis[i].wrongStudents.length; else noneWrong">
-                <span *ngFor="let student of questionsAnalysis[i].wrongStudents; let first = first; let odd = odd" [ngClass]="{'odd': odd, 'even': !odd}" class="student-name">
-                  {{ student }}
-                </span>
-              </span>
-              <ng-template class="student-name" #noneWrong>Yok</ng-template>
-            </td>
-            <td class="student-list">
-              <span *ngIf="questionsAnalysis[i].notAnsweredStudents.length; else noneEmpty">
-                <span *ngFor="let student of questionsAnalysis[i].notAnsweredStudents; let first = first; let odd = odd" [ngClass]="{'odd': odd, 'even': !odd}" class="student-name">
-                  {{ student }}
-                </span>
-              </span>
-              <ng-template #noneEmpty></ng-template>
-            </td>
-          </tr> 
-        -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-<button (click)="downloadPDF()">Download PDF</button>
+</div>

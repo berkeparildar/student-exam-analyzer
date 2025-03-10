@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { NgxPrintModule } from 'ngx-print';
 
 // Optional interface for per‑question analysis details.
 interface QuestionAnalysis {
@@ -17,7 +18,7 @@ interface QuestionAnalysis {
   selector: 'app-exam-analysis',
   templateUrl: './exam-analysis.component.html',
   styleUrls: ['./exam-analysis.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, NgxPrintModule],
 })
 export class ExamAnalysisComponent implements OnInit {
   analysisData: any; // Data passed via router state from the previous page.
@@ -173,42 +174,7 @@ export class ExamAnalysisComponent implements OnInit {
     this.overallAverages.notAnswered = parseFloat((totalNotAnswered / this.numStudents).toFixed(1));
   }
   
-
-
-  // Helper method: return an array of question indices to loop over.
   getQuestionIndices(): number[] {
     return this.questionsAnalysis.map((_, index) => index);
-  }
-
-  downloadPDF(): void {
-    const content = document.getElementById('downloadcontent'); // The div containing the analysis
-  
-    if (content) {
-      // Increase the scale for better quality (try 2 or 2.5 if needed)
-      html2canvas(content, {
-        scale: 2, // Increase scale to improve quality
-        useCORS: true // Ensures external styles are applied
-      }).then(canvas => {
-        // Convert the canvas to JPEG with 80% quality
-        const imgData = canvas.toDataURL('image/jpeg', 0.8);
-        
-        // Convert canvas dimensions from pixels to millimeters
-        const pageWidth = canvas.width * 0.2645; // 1px = 0.2645mm
-        const pageHeight = canvas.height * 0.2645;
-  
-        // Create a PDF with custom page size based on content
-        const pdf = new jsPDF('p', 'mm', [pageWidth, pageHeight]);
-  
-        // Maintain aspect ratio
-        const imgWidth = pageWidth;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
-  
-        // Use course name from analysisData as the file name
-        const fileName = this.analysisData && this.analysisData.courseName ? `${this.analysisData.courseName}.pdf` : 'exam-analysis.pdf';
-        pdf.save(fileName);
-      });
-    }
   }
 }

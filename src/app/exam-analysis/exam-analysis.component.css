@@ -1,14 +1,6 @@
 .exam-analysis-container {
   width: 210mm;
-}
-
-.analysis-heading {
-  text-align: start;
-}
-
-.excel-table {
-  width: 100%;
-  border-collapse: collapse;
+  padding: 15px;
 }
 
 .excel-table th,
@@ -18,121 +10,55 @@
   text-align: start;
 }
 
-.excel-table th {
-  background-color: #f2f2f2;
-}
-
-.answer-analysis-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.answer-analysis-table th,
-.answer-analysis-table td {
-  border: 1px solid #000;
-  padding: 8px;
-  vertical-align: top;
-}
-
-/*
-.student-list {
-    padding: 0px !important;
-}
-.student-name {
-    padding-inline: 8px;
-    padding-block: 2px;
-    display: block;
-}
-*/
-
-.answer-analysis-table th {
-  background-color: #f4f4f4;
-}
-
-.course-gainings-table th,
-.course-gainings-table td {
-  text-align: start;
-  padding: 8px;
-}
-
-.answer-analysis-table th,
-.answer-analysis-table td {
-  padding: 8px;
-  margin-left: 10px;
-}
-
-hr {
-  margin-top: 20px;
-}
-
-/* Remove margin and padding from the .gainings-section */
-.gainings-section {
-  margin: 0;
-  padding: 0;
-}
-
-/* Remove margin from the h2 inside the table header */
-.gainings-section h2 {
-  margin: 0;
-  padding: 0;
-}
-
-/* Ensure no margin/padding on the table in .gainings-section */
-.gainings-section .excel-table,
-.answer-analysis-table,
-.average-section {
-  margin: 0;
-  /* Remove margin */
-  padding: 0;
-  /* Remove padding */
-  width: 100%;
-  border-collapse: collapse;
-}
-
 .excel-table {
   margin: 0;
   padding: 0;
   width: 100%;
   border-collapse: collapse;
-}
-
-.excel-table,
-.answer-analysis-table {
-  border-collapse: collapse;
   border-spacing: 0;
 }
 
 .excel-table th,
-.excel-table td,
-.answer-analysis-table th,
-.answer-analysis-table td {
-  border-bottom: none;
-  /* Apply a 1px border */
-}
-
-.title {
-  font-weight: bold;
-  font-size: 25px;
-  text-align: center;
-}
-
-.normal-text {
-  font-weight: normal;
-  font-size: 16px;
+.excel-table td {
 }
 
 .course-name {
   background-color: rgb(184, 184, 247) !important;
+  font-weight: bold;
+  font-size: 32px;
+  text-align: center !important;
 }
 
-.odd {
-  background-color: rgb(241, 241, 241);
-}
-
-.even {
-  background-color: white;
+.gaining-title {
+  background-color: orange !important;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center !important;
 }
 
 .gaining-text {
-  font-size: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: start !important;
 }
+
+td {
+  font-size: 12px;
+  text-align: center !important;
+  padding: 2px !important;
+}
+
+.even-row {
+  background-color: #c5fed2;
+  /* Light Gray */
+}
+
+.odd-row {
+  background-color: #ffffff;
+  /* White */
+}
+
+.last-row {
+  border-bottom: 1px solid black;
+}
+
