@@ -1,14 +1,15 @@
 <div id="downloadcontent" class="exam-analysis-container" *ngIf="analysisData">
+  <!-- Ders Başlığı -->
   <table class="excel-table">
     <thead>
       <tr>
-        <th style="background-color: rgb(184, 184, 247);">
-          <span class="title">{{ analysisData.courseName }} Kazanım Raporu</span>
+        <th class="course-name">
+          {{ analysisData.courseName }} Kazanım Raporu
         </th>
       </tr>
     </thead>
   </table>
-  <!-- Average Section as a Table -->
+  <!-- Ortalama Kısmı -->
   <div class="average-section">
     <table class="excel-table">
       <colgroup>
@@ -31,6 +32,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
     <!-- Course Gainings -->
     <div class="gainings-section">
       <table class="excel-table">
@@ -88,6 +90,7 @@
               {{ questionsAnalysis[i].notAnsweredCount }}
             </td>
           </tr>
+          <!--
           <tr>
             <th class="analysis-heading">DOĞRU YAPAN ÖĞRENCİLER</th>
             <th class="analysis-heading">YANLIŞ YAPAN ÖĞRENCİLER</th>
@@ -119,11 +122,11 @@
               </span>
               <ng-template #noneEmpty></ng-template>
             </td>
-          </tr>
+          </tr> 
+        -->
         </tbody>
       </table>
     </div>
   </div>
-</div>
 
 <button (click)="downloadPDF()">Download PDF</button>
