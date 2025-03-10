@@ -1,0 +1,46 @@
+<div class="form-group">
+    <label for="course">Select a Course:</label>
+    <select id="course" [(ngModel)]="selectedCourse" (change)="onCourseChange()">
+      <option *ngFor="let course of courses" [value]="course">{{ course }}</option>
+    </select>
+  </div>
+<div class="form-container">
+    <div class="form-group">
+      <label for="answerSheetA">Answer Sheet (A Type Exam):</label>
+      <textarea id="answerSheetA" rows="20" [(ngModel)]="answerSheetA" placeholder="Enter answer sheet details"></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="questionReferenceA">Question Reference (A Type Exam):</label>
+      <textarea id="questionReferenceA" rows="20" [(ngModel)]="questionReferenceA" placeholder="Enter question locations"></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="questionTopics">Enter Question Topics (One per Line, Max 30):</label>
+      <textarea id="questionTopics" [(ngModel)]="questionTopics" rows="20" placeholder="Copy-paste topics from Excel"></textarea>
+    </div>
+  
+  </div>
+
+  <div class="student-info-container">
+    <!-- Student Names -->
+    <div class="form-group">
+      <label for="studentNames">Student Names (Max 15 chars per name, Split by line):</label>
+      <textarea id="studentNames" rows="20" [(ngModel)]="studentNames" placeholder="Enter student names, 15 chars per name, split by line"></textarea>
+    </div>
+  
+    <!-- Exam Type -->
+    <div class="form-group">
+      <label for="examType">Exam Type (A or B):</label>
+      <textarea id="examType" rows="20" [(ngModel)]="examType" placeholder="Enter A or B for exam type"></textarea>
+    </div>
+  
+    <!-- Student Answers -->
+    <div class="form-group">
+      <label for="studentAnswers">Student Answers (Split by line):</label>
+      <textarea id="studentAnswers" rows="20" [(ngModel)]="studentAnswers" placeholder="Enter student answers, split by line"></textarea>
+    </div>
+  </div>
+  
+
+  <button (click)="onSubmit()">Submit</button>

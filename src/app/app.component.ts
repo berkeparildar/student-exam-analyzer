@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ExamInfoInputComponent } from './exam-info-input/exam-info-input.component';
 
 @Component({
   selector: 'app-root',
