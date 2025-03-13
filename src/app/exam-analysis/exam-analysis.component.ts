@@ -177,4 +177,25 @@ export class ExamAnalysisComponent implements OnInit {
   getQuestionIndices(): number[] {
     return this.questionsAnalysis.map((_, index) => index);
   }
+
+  downloadPDF(): void {
+    const content = document.getElementById('downloadcontent');
+  
+    if (!content) {
+      console.error('İçerik bulunamadı!');
+      return;
+    }
+  
+    html2canvas(content, { scale: 2 }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+  
+      const imgWidth = 190; // PDF içindeki resim genişliği
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Oranı koru
+  
+      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+      pdf.save('Kazanım_Raporu.pdf');
+    });
+  }
+  
 }
